@@ -11,32 +11,60 @@
     <link rel="stylesheet" href="librerias/bootstrap/css/bootstrap.min.css">
 </head>
 
-<body>
-    <div class="container text-center">
+<body class="text-center">
+    <div class="px-5 text-center">
     <header>
-        <h1 class="text-center">Ideas</h1>
+        <h1 class="text-center my-3">Ideas</h1>
     </header>
-    <main>
-        <div class="px-3 py-3"><button  id="listar" class="btn btn-primary mx-3">Listar ideas</button>
-        <a id="insertar" class="btn btn-primary mx-3">Modificar idea</a>
-        <a id="insertar" class="btn btn-primary mx-3">Insertar idea</a>
-        <a id="borrar" class="btn btn-primary mx-3">Borrar idea</a>
-    </div>
+    
+        <div class="row mb-5" >
+        <nav class='nav nav-pills'>
+            <div class="col-1">
+                <a class='nav-link active' href='http://localhost/ideas/index.php'>Inicio</a>
+            </div>
+            <div class="col-2">
+                <a class='nav-link' href='http://localhost/ideas/index.php?listar'>Listar ideas</a>
+            </div>  
+            <div class="col-2">
+                <button id = "insertar" class='nav-link' >Insertar idea</button>
+            </div> 
+            <div class="col">
+                <form class="input-group px-2" method="get">        
+                    <input type="search" class="form-control rounded" placeholder="ID" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-outline-primary">Ver Idea</button>
+                </form>
+            </div>
+            <div class="col">
+                <form class="input-group px-2" method="get">        
+                    <input type="search" class="form-control rounded" placeholder="ID" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-outline-primary">Votar</button>
+                </form>
+            </div>
+            <div class="col">
+                <form class="input-group px-2" method="post">        
+                    <input type="search" class="form-control rounded" placeholder="ID" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-outline-primary">Borrar idea</button>
+                </form>
+            </div>
+                
+            </nav>
+        </div>
+     <div id="insert-campo" hidden>
+         <h2>Nueva idea para insertar</h2>
+         <form>
+             Idea: <input type="text" name = "id"></input><br>
+             <button type="reset" class="btn btn-outline-primary">Limpiar</button>
+             <button type="submit" class="btn btn-primary">Crear</button>
+         </form>
+     </div>
+      </div>
+  
         <?php
-        include_once 'Ayuda.php';
-        $obj= json_encode($ideas[0]);
-        echo $obj;
-
-       // echo $ideas[];
-        // $ideas = $_REQUEST["ideas"];
-        // foreach($ideas as $idea){
-        //     echo $idea;
-        // }
+        include_once ('Ayuda.php');
         ?>
-    </main>
+   
     </div>
     <script src="../librerias/jquery/jquery-3.6.0.min.js"></script>
-       <script src="../librerias/sweetAlert/sweetalert2.all.min.js"></script>
        <script src="../librerias/crearXMLHTTP.js"></script> 
        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
        <script src="js/script.js"></script>

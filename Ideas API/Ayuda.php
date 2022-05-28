@@ -24,7 +24,33 @@ function obtenerIdeaPorId(array $ideas, int $id )
     }
 }
 
+//  se ejecuta al pulsar botón "listar"
+if (isset($_GET['listar'])){
+   require_once "connect_db.php";
 
+    $sql = 'SELECT * FROM ideas';
+    $sth = $dbh->prepare($sql);
+    $sth->execute();
+    $rows = $sth->fetchAll();
+
+if (count($rows)>0) {
+  
+    foreach($rows as $row) {
+       $array = array('id'=>$row['id'], 'idea' =>$row['idea'], 'votos'=>$row['votos']);
+       ?><p class="result"> <?php
+        echo json_encode($array);?></p><?php   
+    }
+    ?>
+    <script src="../librerias/jquery/jquery-3.6.0.min.js"></script> 
+    <script src="../librerias/crearXMLHTTP.js"></script> 
+       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+       <script src="js/script.js"></script>
+    <?php 
+}else{ ?>
+<p> <?php echo "No hay datos"; ?></p><?php
+}
+exit();
+}
 
 
 

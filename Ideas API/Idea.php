@@ -44,8 +44,10 @@ class Idea
     }
 
 function toString(){
-    return "id: ".$this->getId()." idea: ".$this.getIdea()." votos: ".$this->getVotos();
+    return "id: ".$this->getId()." idea: ".$this->getIdea()." votos: ".$this->getVotos();
 }
 }
+
+
 
 ?>

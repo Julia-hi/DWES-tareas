@@ -1,3 +1,10 @@
+<?php
+// Start the session
+// session_start();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang='es'>
 
@@ -13,12 +20,21 @@
 
   <nav class='nav nav-pills'>
     <a class='nav-link active' href='index.php?acción=mostrar_inicio'>Inicio</a>
-    <a class='nav-link' href='index.php?acción=mostrar_ver_tarea'>Añadir tarea</a>
+    <a class='nav-link' href='index.php?acción=mostrar_ver_tarea'>Ver tarea</a>
+    <a class='nav-link' href='index.php?acción=mostrar_anadir_tarea'>Insertar tarea</a>
   </nav>
 
   <h2 class='display-5 mt-4 mb-3'>Inicio</h2>
 
-  <p>Página de inicio.</p>
+  <p>Página de inicio.</p><?php
+  if(isset($_SESSION["tareas"])){
+    echo $_SESSION["tareas"];
+  }else{ echo "Sesion no est'a establecida";}
+
+  if(!isset($_REQUEST["tareas"])){ ?>
+        <p>Colección de tareas no existe</p><?php
+      }else{ ?>
+
   <table class="table">
     <thead>
       <tr>
@@ -26,23 +42,26 @@
         <th>Prioridad</th>
         <th>Fecha de creación</th>
         <th>Fecha tope</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <?php $tareas = $_REQUEST["tareas"];
+      <?php  
+      $tareas = $_REQUEST["tareas"];
       foreach ($tareas as $key => $tarea) { ?>
         <tr>
           <td><?= $tarea->getQueHacer() ?></td>
           <td><?= $tarea->getPrioridad() ?></td>
           <td><?= $tarea->getFechaCreacion() ?></td>
           <td><?= $tarea->getfechaTope() ?></td>
+          <td><a class='nav-link' href='index.php?acción=mostrar_ver_tarea'>Ver tarea</a></td>
         </tr>
       <?php } ?>
     </tbody>
   </table>
   <?php if (count($tareas) == 0) { ?>
     <p>No hay tareas que mostrar</p>
-  <?php } ?>
+  <?php }} ?>
 </body>
 
 </html>

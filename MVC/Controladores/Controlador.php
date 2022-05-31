@@ -4,13 +4,17 @@
 class Controlador
 {
     private $tarea;
-   // $tarea->setQueHacer("Entregar tarea");
+    // private $modelo, $vista;
 
-   // $tarea = new Tarea("Entregar tarea", 1, "2022-03-15", "2022-05-30"); // function __construct($quehacer, $prioridad, $fechaCreacion, $fechaTope)
-
-    // public function __construct($tarea) {
-    //     $this->tarea = $tarea;
+    // public function __construct($modelo, $vista) {
+    //     $this->modelo = $modelo;
+    //     $this->vista = $vista;
     // }
+
+    // public function __construct() {
+    //         $this->tarea = $tarea;
+    //     }
+
 
     public function mostrar_inicio()
     {
@@ -24,6 +28,9 @@ class Controlador
 
     public function mostrar_anadir_tarea()
     {
+
+        
+        
         require_once('Vistas/anadir_tarea.php');
     }
 
@@ -38,7 +45,32 @@ class Controlador
         require_once('Vistas/add.php');
     }
 
-   
+   public function comprobarForm(){
+       $correcto = false;
+    if(isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
+
+        if(isset($_POST['queHacer']) && !empty($_POST['queHacer']) 
+        &&isset($_POST['prioridad']) && !empty($_POST['prioridad'])
+        && isset($_POST['fechaTope']) && !empty($_POST['fechaTope'])){
+           
+            // $this->tarea->setQueHacer($quehacer);
+            // $this->tarea->setPrioridad($prioridad);
+            // $this->tarea->setFechaCreacion($fechaCreacion);
+            // $this->tarea->setfechaTope($fechaTope);
+            
+           
+           // $tarea->guardarTarea();
+          //  require_once($modelo);
+            $_SESSION['lol'] = "sesion guardada";  
+            $correcto =  true;
+         }else{
+         $correcto = false;
+        }
+        
+    }
+    //$correcto = true;
+    return $correcto;
+   }
    
 
 }

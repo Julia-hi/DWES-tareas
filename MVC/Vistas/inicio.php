@@ -1,6 +1,6 @@
 <?php
 // Start the session
-// session_start();
+ session_start();
 
 
 ?>
@@ -20,7 +20,7 @@
 
   <nav class='nav nav-pills'>
     <a class='nav-link active' href='index.php?acción=mostrar_inicio'>Inicio</a>
-    <a class='nav-link' href='index.php?acción=mostrar_ver_tarea'>Ver tarea</a>
+    <!-- <a class='nav-link' href='index.php?acción=mostrar_ver_tarea'>Ver tarea</a> -->
     <a class='nav-link' href='index.php?acción=mostrar_anadir_tarea'>Insertar tarea</a>
   </nav>
 
@@ -29,7 +29,7 @@
   <p>Página de inicio.</p><?php
   if(isset($_SESSION["tareas"])){
     echo $_SESSION["tareas"];
-  }else{ echo "Sesion no est'a establecida";}
+  }else{ echo "Sesión no está establecida";}
 
   if(!isset($_REQUEST["tareas"])){ ?>
         <p>Colección de tareas no existe</p><?php
@@ -54,7 +54,10 @@
           <td><?= $tarea->getPrioridad() ?></td>
           <td><?= $tarea->getFechaCreacion() ?></td>
           <td><?= $tarea->getfechaTope() ?></td>
-          <td><a class='nav-link' href='index.php?acción=mostrar_ver_tarea'>Ver tarea</a></td>
+          <td><a class='nav-link' href='index.php?acción=mostrar_ver_tarea'>Ver</a>
+          <!-- <a class='nav-link' href='index.php?acción=mostrar_borrar_tarea'>Borrar</a> -->
+          <a class='btn' href='borrar_tarea.php?=<?php $tarea->getQueHacer() ?>'>Borrar</a>
+        </td>
         </tr>
       <?php } ?>
     </tbody>

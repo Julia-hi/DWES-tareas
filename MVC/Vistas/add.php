@@ -14,28 +14,40 @@
     <nav class='nav nav-pills'>
       <a class='nav-link' href='index.php?acción=mostrar_inicio'>Inicio</a>
       <a class='nav-link ' href='index.php?acción=mostrar_ver_tarea'>Ver tarea</a>
-      <a class='nav-link ' href='index.php?acción=mostrar_anadir_tarea'>Insertar tarea</a>
-      <a class='nav-link ' href='index.php?acción=mostrar_borrar_tarea'>Borrar tarea</a>
+      <a class='nav-link active' href='index.php?acción=mostrar_anadir_tarea'>Insertar tarea</a>
+      <!-- <a class='nav-link ' href='index.php?acción=mostrar_borrar_tarea'>Borrar tarea</a> -->
     </nav>
 
     <h2 class='display-5 mt-4 mb-3'>Insertar tarea</h2>
+<?php 
+require_once('Modelo/Tarea.php');
 
-    <p>Se ha creado tarea:</p>
+if(Controlador::comprobarForm()==true){
+  $quehacer = filter_var($_POST['queHacer'], FILTER_SANITIZE_STRING);
+  $prioridad = $_POST['prioridad'];
+  $fechaTope = $_POST['fechaTope'];
+  $fechaCreacion = date("Y/m/d");
+  $tarea = new Tarea($quehacer, $prioridad , $fechaCreacion, $fechaTope);
+  $_SESSION['lol'] = serialize($tarea);
+  
+  ?>
+  <p>Se ha creado tarea:</p>
     <ul>
-      <li>Que hacer: <?= $_POST['queHacer'] ?>.</li>
-      <li>Prioridad: <?= $_POST['prioridad'];   ?>.</li>
-      <li>Fecha de creación: <?php echo(date("Y-m-d")) ?>.</li>
-      <li>Fecha tope: <?= $_POST['fechaTope'] ?>.</li>
+      <li>Que hacer: <?= $tarea->getQueHacer() ?></li>
+      <li>Prioridad: <?= $_POST['prioridad'];   ?></li>
+      <li>Fecha de creación: <?php echo(date("Y/m/d")) ?></li>
+      <li>Fecha tope: <?= $_POST['fechaTope'] ?></li>
     </ul>
-    <?php 
-    require_once('Modelo/Tareas.php');
+  <?php
+}else{ ?>
+  <p>Alguno de los campos está vacio, debes rellenar todos campos del formulario</p><?php
+}?>
     
-   // $tareas = new Tareas();
-    //$tareas->anadirTarea($tarea);
-   // echo "tareas: ". $_SESSION['tareas']."<br>";
-  // $_SESSION["tarea"] = "tarea";
+    <?php 
+   
+  
  if(isset($_SESSION["lol"])){
-  echo "lol: ". $_SESSION["lol"];
-}else{ echo "Sesion no est'a establecida";} ?>
+  echo "lol: ". unserialize($_SESSION["lol"])->getQueHacer();
+}else{ echo "Sesion no existe";} ?>
   </body>
 </html>

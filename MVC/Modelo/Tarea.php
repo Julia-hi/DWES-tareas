@@ -26,7 +26,7 @@ private $quehacer, $prioridad, $fechaCreacion, $fechaTope;
     }
     //getter para prioridad
     function getPrioridad(){
-        return $this->quehacer;
+        return $this->prioridad;
     }
 
     //setter para fechaCreacion

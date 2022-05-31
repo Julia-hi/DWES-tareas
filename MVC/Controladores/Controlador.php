@@ -4,17 +4,6 @@
 class Controlador
 {
     private $tarea;
-    // private $modelo, $vista;
-
-    // public function __construct($modelo, $vista) {
-    //     $this->modelo = $modelo;
-    //     $this->vista = $vista;
-    // }
-
-    // public function __construct() {
-    //         $this->tarea = $tarea;
-    //     }
-
 
     public function mostrar_inicio()
     {
@@ -45,38 +34,42 @@ class Controlador
         require_once('Vistas/add.php');
     }
 
-   public function comprobarForm(){
-       $correcto = false;
-    if(isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
+public function comprobarForm(){
+    $correcto = false;
+ if(isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] == "POST"){
 
-        if(isset($_POST['queHacer']) && !empty($_POST['queHacer']) 
-        &&isset($_POST['prioridad']) && !empty($_POST['prioridad'])
-        && isset($_POST['fechaTope']) && !empty($_POST['fechaTope'])){
-           
-            // $this->tarea->setQueHacer($quehacer);
-            // $this->tarea->setPrioridad($prioridad);
-            // $this->tarea->setFechaCreacion($fechaCreacion);
-            // $this->tarea->setfechaTope($fechaTope);
-            
-           
-           // $tarea->guardarTarea();
-          //  require_once($modelo);
-            $_SESSION['lol'] = "sesion guardada";  
-            $correcto =  true;
-         }else{
-         $correcto = false;
-        }
+     if(isset($_POST['queHacer']) && !empty($_POST['queHacer']) 
+     &&isset($_POST['prioridad']) && !empty($_POST['prioridad'])
+     && isset($_POST['fechaTope']) && !empty($_POST['fechaTope'])
+     && validarPrioridad()>0){
         
-    }
-    //$correcto = true;
-    return $correcto;
-   }
-   
-
+         $quehacer = $_POST['queHacer'];
+         $prioridad = $_POST['prioridad'];
+         $fechaCreacion = date("Y/m/d");
+         $fechaTope = $_POST['fechaTope'];
+        
+         $tarea = new Tarea($quehacer, $prioridad , $fechaCreacion, $fechaTope);
+         $_SESSION['tarea'] = serialize($tarea); 
+         $correcto = true;
+      }else{
+      $correcto = false;
+     }
+ }
+ return $correcto;
+}
 }
 
 
-   
+function validarPrioridad(){
+    $valores = array('baja','madia','alta'); // opciones disponibles
+    $num=0;
+    foreach($valores as $valor){
+        if(($_POST['prioridad']) === $valor){
+            $num++;
+        }   
+    }
+    return $num;
+}  
 
 
 

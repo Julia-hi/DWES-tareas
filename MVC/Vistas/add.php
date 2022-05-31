@@ -22,32 +22,23 @@
 <?php 
 require_once('Modelo/Tarea.php');
 
-if(Controlador::comprobarForm()==true){
-  $quehacer = filter_var($_POST['queHacer'], FILTER_SANITIZE_STRING);
-  $prioridad = $_POST['prioridad'];
-  $fechaTope = $_POST['fechaTope'];
-  $fechaCreacion = date("Y/m/d");
-  $tarea = new Tarea($quehacer, $prioridad , $fechaCreacion, $fechaTope);
-  $_SESSION['lol'] = serialize($tarea);
+
+if(Controlador::comprobarForm()===true){
   
+  $tarea = unserialize($_SESSION["tarea"]); 
   ?>
   <p>Se ha creado tarea:</p>
     <ul>
       <li>Que hacer: <?= $tarea->getQueHacer() ?></li>
-      <li>Prioridad: <?= $_POST['prioridad'];   ?></li>
-      <li>Fecha de creación: <?php echo(date("Y/m/d")) ?></li>
-      <li>Fecha tope: <?= $_POST['fechaTope'] ?></li>
+      <li>Prioridad: <?= $tarea->getPrioridad()   ?></li>
+      <li>Fecha de creación: <?php $tarea->getFechaCreacion() ?></li>
+      <li>Fecha tope: <?= $tarea->getfechaTope(); session_destroy(); ?></li>
     </ul>
   <?php
 }else{ ?>
-  <p>Alguno de los campos está vacio, debes rellenar todos campos del formulario</p><?php
+  <p>Los datos no han guardados.</p>
+  <p>Alguno de los campos está vacio o incorrecto, debes rellenar todos campos del formulario</p><?php
 }?>
-    
-    <?php 
-   
-  
- if(isset($_SESSION["lol"])){
-  echo "lol: ". unserialize($_SESSION["lol"])->getQueHacer();
-}else{ echo "Sesion no existe";} ?>
+
   </body>
 </html>

@@ -18,17 +18,18 @@
 
     <h2 class='display-5 mt-4 mb-3'>Añadir tarea</h2>
  <div class="form-group col-4">
-    <form action="index.php?acción=mostrar_add_tarea" method="post">
-        Que hacer: <input type="text" name="queHacer" class="form-control" required='required'><br>
-        Prioridad: <select  name="prioridad" class="form-control" >
+   <span>* los datos requeridos</span>
+    <form action="index.php?acción=mostrar_add_tarea" method="POST">
+        Que hacer: *<input type="text" name="queHacer" class="form-control" required='required'><br>
+        Prioridad: *<select  name="prioridad" class="form-control" required='required'>
                     <option value="" >Elige opción</option>
                     <option value="baja">baja</option>
                     <option value="media">media</option>
                     <option value="alta">alta</option>
                   </select><br>
-        Fecha tope: <input type="date" name="fechaTope" class="form-control" required='required'><br>
+        Fecha tope: *<input type="date" name="fechaTope" class="form-control" required='required'><br>
         <button type="reset" class="btn btn-primary">Limpiar</button>
-        <button type="submit" class="btn btn-primary">Crear</button>
+        <button type="submit" class="btn btn-primary" name="submit">Crear</button>
     </form>
     </div>
 

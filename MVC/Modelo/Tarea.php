@@ -47,7 +47,33 @@ private $quehacer, $prioridad, $fechaCreacion, $fechaTope;
         return $this->fechaTope;
     }
 
-    
+    function guardarTarea(){
+        if(isset($_SESSION['tareas'])){
+           array_push($_SESSION['tareas'], $this); 
+        }else{
+            $_SESSION['tareas'] = array();
+            array_push($_SESSION['tareas'], $this); 
+        }
+       
+    }
+
+    function borrarTarea($tarea){
+        if(buscarTarea($tarea)){
+            $pos = array_search($tarea,$this); //posicion de elemento del array  
+            array_splice($a1,$pos,1); //elimina un elemento de posición $pos
+            echo "La tarea se ha borrado correctamente!";
+        }
+        
+    }
+
+    function buscarTarea($tarea){
+        if (in_array($tarea, $this)){
+            return true; // se ha encontrado la tarea
+        }else{
+            echo "La tarea no existe";
+            return false; // no se ha encontrado la tarea
+    }
+    }
 
 }
 

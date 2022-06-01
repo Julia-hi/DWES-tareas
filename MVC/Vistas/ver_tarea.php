@@ -13,14 +13,12 @@
     <nav class='nav nav-pills'>
       <a class='nav-link' href='index.php?acción=mostrar_inicio'>Inicio</a>
       <a class='nav-link active' href='index.php?acción=mostrar_ver_tarea'>Ver tarea</a>
-      <a class='nav-link ' href='index.php?acción=mostrar_anadir_tarea'>Insertar tarea</a>
-      <a class='nav-link ' href='index.php?acción=mostrar_borrar_tarea'>Borrar tarea</a>
     </nav>
 
     <h2 class='display-5 mt-4 mb-3'>Ver tarea</h2>
 
     <p>La tarea es la siguiente:</p>
-
+<?php echo $tarea ?>
   </body>
 </html>
 

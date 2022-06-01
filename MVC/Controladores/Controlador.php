@@ -17,16 +17,13 @@ class Controlador
 
     public function mostrar_anadir_tarea()
     {
-
-        
-        
         require_once('Vistas/anadir_tarea.php');
     }
 
-    public function mostrar_borrar_tarea()
-    {
-        require_once('Vistas/borrar_tarea.php');
-    }
+    // public function mostrar_borrar_tarea()
+    // {
+    //     require_once('Vistas/borrar_tarea.php');
+    // }
 
     public function mostrar_add_tarea()
     {
@@ -43,14 +40,18 @@ public function comprobarForm(){
      && isset($_POST['fechaTope']) && !empty($_POST['fechaTope'])
      && validarPrioridad()>0){
         
-         $quehacer = $_POST['queHacer'];
-         $prioridad = $_POST['prioridad'];
-         $fechaCreacion = date("Y/m/d");
-         $fechaTope = $_POST['fechaTope'];
+        $quehacer = $_POST['queHacer'];
+        $prioridad = $_POST['prioridad'];
+        $fechaCreacion = date("Y/m/d");
+        $fechaTope = date_create($_POST['fechaTope']); // converte string a objeto
+        $fechaTope = date_format($fechaTope, "Y/m/d"); //cambia formato de la fecha al formato deseado
         
-         $tarea = new Tarea($quehacer, $prioridad , $fechaCreacion, $fechaTope);
-         $_SESSION['tarea'] = serialize($tarea); 
-         $correcto = true;
+        $tarea = new Tarea($quehacer, $prioridad , $fechaCreacion, $fechaTope);
+         
+        $_SESSION['tarea'] = serialize($tarea); 
+        $tarea->guardarTarea();
+        $correcto = true;
+
       }else{
       $correcto = false;
      }
@@ -59,9 +60,9 @@ public function comprobarForm(){
 }
 }
 
-
+// convalida si prioridad coincide con uno de los opciones admitidos
 function validarPrioridad(){
-    $valores = array('baja','madia','alta'); // opciones disponibles
+    $valores = array('baja','media','alta'); // opciones disponibles
     $num=0;
     foreach($valores as $valor){
         if(($_POST['prioridad']) === $valor){

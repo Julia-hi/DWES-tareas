@@ -1,8 +1,6 @@
 <?php
 // Start the session
  session_start();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -26,12 +24,9 @@
 
   <h2 class='display-5 mt-4 mb-3'>Inicio</h2>
 
-  <p>Página de inicio.</p><?php
-  if(isset($_SESSION["tareas"])){
-    echo $_SESSION["tareas"];
-  }else{ echo "Sesión no está establecida";}
-
-  if(!isset($_REQUEST["tareas"])){ ?>
+  <?php
+   
+  if(!isset($_SESSION["tareas"])){ //if(!isset($_REQUEST["tareas"])) ?>
         <p>Colección de tareas no existe</p><?php
       }else{ ?>
 
@@ -47,16 +42,24 @@
     </thead>
     <tbody>
       <?php  
-      $tareas = $_REQUEST["tareas"];
+     $tareas = $_SESSION["tareas"];
       foreach ($tareas as $key => $tarea) { ?>
         <tr>
           <td><?= $tarea->getQueHacer() ?></td>
           <td><?= $tarea->getPrioridad() ?></td>
           <td><?= $tarea->getFechaCreacion() ?></td>
           <td><?= $tarea->getfechaTope() ?></td>
-          <td><a class='nav-link' href='index.php?acción=mostrar_ver_tarea'>Ver</a>
-          <!-- <a class='nav-link' href='index.php?acción=mostrar_borrar_tarea'>Borrar</a> -->
-          <a class='btn' href='borrar_tarea.php?=<?php $tarea->getQueHacer() ?>'>Borrar</a>
+          <td>
+            <form action="index.php?acción=mostrar_ver_tarea" method="GET">
+              <input type="hidden" name="queHacer" value = "<?= $tarea->getQueHacer() ?>">
+              <input type="hidden" name="prioridad" value = "<?= $tarea->getPrioridad() ?>">
+              <input type="hidden" name="fechaCreacion" value = "<?= $tarea->getFechaCreacion() ?>">
+              <input type="hidden" name="fechaTope" value = "<?= $tarea->getfechaTope() ?>">
+              <input type="submit" value="Ver" class='btn btn-primary my-2'>
+            </form>
+          
+            <!-- <a class='btn btn-primary my-2' href='index.php?acción=mostrar_ver_tarea'>Ver</a><br> -->
+          <a class='btn btn-primary my-2' href='borrar_tarea.php?=<?php $tarea->getQueHacer() ?>'>Borrar</a>
         </td>
         </tr>
       <?php } ?>

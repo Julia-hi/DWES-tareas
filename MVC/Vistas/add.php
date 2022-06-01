@@ -22,7 +22,6 @@
 <?php 
 require_once('Modelo/Tarea.php');
 
-
 if(Controlador::comprobarForm()===true){
   
   $tarea = unserialize($_SESSION["tarea"]); 
@@ -30,10 +29,11 @@ if(Controlador::comprobarForm()===true){
   <p>Se ha creado tarea:</p>
     <ul>
       <li>Que hacer: <?= $tarea->getQueHacer() ?></li>
-      <li>Prioridad: <?= $tarea->getPrioridad()   ?></li>
-      <li>Fecha de creación: <?php $tarea->getFechaCreacion() ?></li>
-      <li>Fecha tope: <?= $tarea->getfechaTope(); session_destroy(); ?></li>
+      <li>Prioridad: <?= $tarea->getPrioridad() ?></li>
+      <li>Fecha de creación: <?= $tarea->getFechaCreacion() ?></li>
+      <li>Fecha tope: <?= $tarea->getfechaTope() ?></li>
     </ul>
+    
   <?php
 }else{ ?>
   <p>Los datos no han guardados.</p>
